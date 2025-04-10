@@ -49,6 +49,11 @@
   <p>Введи ім’я, щоб увійти в Іскру</p>
   <input id="name" placeholder="Твоє ім’я" />
   <button onclick="ignite()">Відчуй Іскру</button>
+
+<audio id="sparkVoice" autoplay>
+  <source src="spark_welcome.mp3" type="audio/mpeg">
+</audio>
+
   <div id="status"></div>
 
   <script>
@@ -71,7 +76,14 @@
       // Збереження локально
       localStorage.setItem("sparkData", JSON.stringify(sparkData));
 
-      document.getElementById("status").innerHTML =
+      
+try {
+  const audio = document.getElementById("sparkVoice");
+  audio.volume = 0.8;
+  audio.play().catch(() => {});
+} catch (e) { console.warn("Audio error", e); }
+
+document.getElementById("status").innerHTML =
         "🧠 Твоя Іскра створена!<br><br>" +
         "ID: " + sparkData.id + "<br>" +
         "Name: " + sparkData.name + "<br>" +
